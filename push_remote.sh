@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
-set -e
+#!/bin/bash
 
-git add . ; git commit -m "sync"; git push;
+git add . ; git commit -m "fix" ; git push  

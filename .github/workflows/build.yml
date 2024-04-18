@@ -1,0 +1,67 @@
+name: Build and Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      Environment:
+        type: choice
+        description: 'Environment'
+        required: true
+        options:
+           - Debug
+           - Release
+
+env:
+  AZURE_WEBAPP_NAME: netframeworkgabo    # set this to your application's name
+  AZURE_SOLUTION_NAME: SimpleFrameworkApp.sln  
+  AZURE_WEBAPP_PACKAGE_PATH: 'published'      # set this to the path to your web app project, defaults to the repository root
+  RESOURCE_GROUP: webapp
+  AZURE_SUBSCRIPTION_ID: 830cf174-325e-47f4-adbf-96381bee6ba0
+jobs:
+  build:
+    name: Build and deploy
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup MSBuild path
+      uses: microsoft/setup-msbuild@v1.1
+    
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1.0.5
+
+    - name: Install Azure CLI
+      shell: pwsh
+      run: |
+        $ProgressPreference = 'SilentlyContinue'; Invoke-WebRequest -Uri https://aka.ms/installazurecliwindows -OutFile .\AzureCLI.msi; Start-Process msiexec.exe -Wait -ArgumentList '/I AzureCLI.msi /quiet'; Remove-Item .\AzureCLI.msi
+      
+    - name: Restore NuGet packages
+      run: nuget restore ${{ env.AZURE_SOLUTION_NAME }}
+
+    - name: Build
+      run: msbuild ${{ env.AZURE_SOLUTION_NAME }} /p:Configuration=Release
+
+    - name: Publish to folder
+      run: msbuild ${{ env.AZURE_SOLUTION_NAME }} /p:Configuration=Release /p:EnvironmentName=${{ inputs.Environment }} /p:DeployOnBuild=true /t:WebPublish /p:WebPublishMethod=FileSystem /p:publishUrl=${{ env.AZURE_WEBAPP_PACKAGE_PATH }} /p:PackageAsSingleFile=false
+
+    #https://github.com/marketplace/actions/azure-login#login-with-a-service-principal-secret
+    - name: Az CLI login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Retrieve publish profile for deployment
+      id: publishProfileRetrieval
+      shell: pwsh
+      run: |
+        $publishProfiles=(az webapp deployment list-publishing-profiles --name ${{ env.AZURE_WEBAPP_NAME }}  --resource-group "${{ env.RESOURCE_GROUP }}" --subscription ${{ env.AZURE_SUBSCRIPTION_ID }} --xml)
+        echo "::add-mask::$publishProfiles"
+        echo "::set-output name=publishProfiles::$publishProfiles"
+
+    - name: Deploy ${{ env.artifactName }} to Azure WebApp
+      id: deploy-to-webapp
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+        publish-profile: ${{ steps.publishProfileRetrieval.outputs.publishProfiles }}
