@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿
+using Microsoft.Extensions.Logging;
 using System;
 using System.Web;
 using System.Web.Optimization;
@@ -19,10 +20,11 @@ namespace WebApplication1
         }
         private void ConfigureLogging()
         {
+  
             _loggerFactory = LoggerFactory.Create(builder =>
             {
-
-                // Add more logging providers as needed (e.g., Debug, File, etc.)
+                //builder.
+                // Add more logging roviders as needed (e.g., Debug, File, etc.)
             });
         }
 
