@@ -9,9 +9,9 @@ namespace WebApplication1
     {
         private readonly ILogger<Contact> _logger;
 
-        public Contact(ILogger<Contact> logger)
+        public Contact()
         {
-            _logger = logger;
+            _logger = Global.CreateLogger<Contact>();
         }
 
         protected void Page_Load(object sender, EventArgs e)
