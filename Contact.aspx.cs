@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -12,6 +14,8 @@ namespace WebApplication1
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            
+
             string demotext = ConfigurationManager.AppSettings["demokeyvalue"];
             contactmessage.Text = demotext;
         }
