@@ -13,7 +13,7 @@ on:
 
 env:
   AZURE_WEBAPP_NAME: netframeworkgabo    # set this to your application's name
-  AZURE_SOLUTION_NAME: SimpleFrameworkApp.sln  
+  AZURE_SOLUTION_NAME: WebApplication1.sln
   AZURE_WEBAPP_PACKAGE_PATH: 'published'      # set this to the path to your web app project, defaults to the repository root
   RESOURCE_GROUP: webapp
   AZURE_SUBSCRIPTION_ID: 830cf174-325e-47f4-adbf-96381bee6ba0
