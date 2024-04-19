@@ -1,21 +1,22 @@
 ﻿using Microsoft.Extensions.Logging;
-using Serilog;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace WebApplication1
 {
     public partial class Contact : Page
     {
+        private readonly ILogger<Contact> _logger;
+
+        public Contact(ILogger<Contact> logger)
+        {
+            _logger = logger;
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-
+            _logger.LogInformation("Page loaded"); // Log information about the page load
             string demotext = ConfigurationManager.AppSettings["demokeyvalue"];
             contactmessage.Text = demotext;
         }

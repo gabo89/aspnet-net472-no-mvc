@@ -21,7 +21,7 @@ namespace WebApplication1
         {
             _loggerFactory = LoggerFactory.Create(builder =>
             {
-                builder.AddConsole(); // Example: Adding console logger
+
                 // Add more logging providers as needed (e.g., Debug, File, etc.)
             });
         }
