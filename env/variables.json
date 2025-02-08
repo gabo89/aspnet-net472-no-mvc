@@ -1,0 +1,14 @@
+{
+  "dev": {
+    "key": "value"   
+  },
+  "stg": {
+    "key": "value"   
+  },
+  "uat": {
+    "key": "value"   
+  },
+  "prod": {
+    "key": "value"   
+  }
+}
