@@ -51,7 +51,6 @@ jobs:
         done < keystoinsert.json
         rm envvarstoinsert.json keystoinsert.json token.txt
         cat <<< $(jq --arg uuid "$(uuidgen)" '.sentinel = $uuid' $GITHUB_WORKSPACE/env/variables.json) >  $GITHUB_WORKSPACE/env/variables.json
-        git status
         git config --global user.email "automation@example.com"
         git config --global user.name "Automation bot"
         git add .
