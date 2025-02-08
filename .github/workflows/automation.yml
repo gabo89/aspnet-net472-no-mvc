@@ -43,4 +43,4 @@ jobs:
         while read data
         do
           echo "inserting $data"
-        done <<< keystoinsert.json
+        done < keystoinsert.json
