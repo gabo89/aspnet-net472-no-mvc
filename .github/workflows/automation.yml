@@ -35,3 +35,4 @@ jobs:
         echo ${{secrets.AUTOMATION_TOKEN}} > token.txt
         gh auth login --with-token < token.txt
         gh variable list --env ${{ inputs.Environment}}
+        jq '.${{ inputs.Environment}}' $GITHUB_WORKSPACE/env/variables.json
