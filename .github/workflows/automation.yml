@@ -37,6 +37,6 @@ jobs:
         gh variable list --env ${{ inputs.Environment}}
         jq '.${{ inputs.Environment}}' $GITHUB_WORKSPACE/env/variables.json > envvarstoinsert.json
 
-        jq --raw-output 'keys' envvarstoinsert.json > keystoinsert.json
+        jq --raw-output 'keys[]' envvarstoinsert.json > keystoinsert.json
         echo "keys to insert"
         cat keystoinsert.json
