@@ -45,7 +45,7 @@ jobs:
         while read key
         do
           value=$(jq --raw-output .$key envvarstoinsert.json)
-          echo "inserting $data with value $value"
-          gh variable set $data --body "$value" --env ${{ inputs.Environment}}
+          echo "inserting $key with value $value"
+          gh variable set $key --body "$value" --env ${{ inputs.Environment}}
 
         done < keystoinsert.json
