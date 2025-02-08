@@ -49,7 +49,7 @@ jobs:
           gh variable set $key --body "$value" --env ${{ inputs.Environment}}
 
         done < keystoinsert.json
-        uuid=$(uuidgen)
-        cat <<< $(jq -r '.sentinel = $uuid' $GITHUB_WORKSPACE/env/variables.json) >  $GITHUB_WORKSPACE/env/variables.json
+        git status
+        cat <<< $(jjq --arg uuid "$(uuidgen)" '.sentinel = $uuid' $GITHUB_WORKSPACE/env/variables.json) >  $GITHUB_WORKSPACE/env/variables.json
         cat $GITHUB_WORKSPACE/env/variables.json 
 
