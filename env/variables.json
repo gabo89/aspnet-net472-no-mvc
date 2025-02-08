@@ -1,14 +1,14 @@
 {
   "dev": {
-    "key": "value"   
+    "key": "valuedev"
   },
   "stg": {
-    "key": "value"   
+    "key": "valuetg"
   },
   "uat": {
-    "key": "value"   
+    "key": "valueuat"
   },
   "prod": {
-    "key": "value"   
+    "key": "valueprod"
   }
 }
