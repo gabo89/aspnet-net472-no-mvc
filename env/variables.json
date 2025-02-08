@@ -1,4 +1,5 @@
 {
+  "sentinel": "1",
   "dev": {
     "key": "valuedev",
     "date": "datedev"
