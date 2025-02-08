@@ -42,6 +42,6 @@ jobs:
         cat keystoinsert.json
         while read key
         do
-          value=jq --raw-output .$key envvarstoinsert.json
+          value=$(jq --raw-output .$key envvarstoinsert.json)
           echo "inserting $data with value $value"
         done < keystoinsert.json
