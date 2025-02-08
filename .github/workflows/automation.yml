@@ -32,5 +32,5 @@ jobs:
         
     - name: Setup MSBuild path
       run: |
-        gh auth token
+        gh auth login --with-token << ${{secrets.AUTOMATION_TOKEN}}
         gh variable list --env ${{ inputs.Environment}}
