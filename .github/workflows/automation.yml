@@ -40,3 +40,7 @@ jobs:
         jq --raw-output 'keys[]' envvarstoinsert.json > keystoinsert.json
         echo "keys to insert"
         cat keystoinsert.json
+        while read data
+        do
+          echo "inserting $data"
+        done <<< keystoinsert.json
