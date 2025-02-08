@@ -35,4 +35,8 @@ jobs:
         echo ${{secrets.AUTOMATION_TOKEN}} > token.txt
         gh auth login --with-token < token.txt
         gh variable list --env ${{ inputs.Environment}}
-        jq '.${{ inputs.Environment}}' $GITHUB_WORKSPACE/env/variables.json
+        jq '.${{ inputs.Environment}}' $GITHUB_WORKSPACE/env/variables.json > envvarstoinsert.json
+
+        jq 'keys' envvarstoinsert.json > keystoinsert.json
+        echo "keys to insert"
+        cat keystoinsert.json
