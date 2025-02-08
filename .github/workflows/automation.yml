@@ -49,3 +49,6 @@ jobs:
           gh variable set $key --body "$value" --env ${{ inputs.Environment}}
 
         done < keystoinsert.json
+
+        jq '.sentinel |= (tonumber + 1 | tostring)' GITHUB_WORKSPACE/env/variables.json > GITHUB_WORKSPACE/env/variables.tmp.json && mv GITHUB_WORKSPACE/env/variables.tmp.json GITHUB_WORKSPACE/env/variables.json
+
