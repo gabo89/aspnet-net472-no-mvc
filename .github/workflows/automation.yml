@@ -22,7 +22,7 @@ jobs:
     
     - name: install setup gh cli
       run: |
-        sudo apt update && sudo apt-get install wget -y && sudo mkdir -p -m 755 /etc/apt/keyrings \
+        sudo apt update && sudo apt-get install wget jq -y && sudo mkdir -p -m 755 /etc/apt/keyrings \
         && out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg \
         && cat $out | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
         && sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
