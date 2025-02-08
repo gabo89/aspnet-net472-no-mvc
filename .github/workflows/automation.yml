@@ -20,7 +20,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-    - name: Setup MSBuild path
+    - name: install setup gh cli
       run: |
         sudo apt update && sudo apt-get install wget -y && sudo mkdir -p -m 755 /etc/apt/keyrings \
         && out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg \
@@ -30,7 +30,8 @@ jobs:
         && sudo apt update \
         && sudo apt install gh -y
         
-    - name: Setup MSBuild path
+    - name: access and configure via github cli
       run: |
-        gh auth login --with-token < ${{secrets.AUTOMATION_TOKEN}}
+        echo ${{secrets.AUTOMATION_TOKEN}} > token.txt
+        gh auth login --with-token < token.txt
         gh variable list --env ${{ inputs.Environment}}
