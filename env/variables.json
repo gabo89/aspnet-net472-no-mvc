@@ -1,14 +1,18 @@
 {
   "dev": {
-    "key": "valuedev"
+    "key": "valuedev",
+    "date": "datedev"
   },
   "stg": {
-    "key": "valuetg"
+    "key": "valuetg",
+    "date": "datestg"
   },
   "uat": {
-    "key": "valueuat"
+    "key": "valueuat",
+    "date": "dateuat"
   },
   "prod": {
-    "key": "valueprod"
+    "key": "valueprod",
+    "date": "dateprod"
   }
 }
