@@ -1,0 +1,26 @@
+name: Automation
+
+on:
+  workflow_dispatch:
+    inputs:
+      Environment:
+        type: choice
+        description: 'Environment'
+        required: true
+        options:
+           - dev
+           - stg
+           - uat
+           - prod
+jobs:
+  build:
+    name: conned
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.Environment}}
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup MSBuild path
+      run: |
+        sudo apt update && sudo apt-get install wget -y \
+	      && sudo mkdir -p -m 755 /etc/apt/keyrings \
