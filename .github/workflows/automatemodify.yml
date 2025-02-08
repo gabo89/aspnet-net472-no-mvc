@@ -1,4 +1,4 @@
-name: Automation
+name: Automation & modify
 
 on:
   workflow_dispatch:
@@ -47,5 +47,14 @@ jobs:
           value=$(jq --raw-output .$key envvarstoinsert.json)
           echo "inserting $key with value $value"
           gh variable set $key --body "$value" --env ${{ inputs.Environment}}
+
         done < keystoinsert.json
+        rm envvarstoinsert.json keystoinsert.json token.txt
+        cat <<< $(jq --arg uuid "$(uuidgen)" '.sentinel = $uuid' $GITHUB_WORKSPACE/env/variables.json) >  $GITHUB_WORKSPACE/env/variables.json
+        git config --global user.email "automation@example.com"
+        git config --global user.name "Automation bot"
+        git add .
+        git commit -m "increased sentinel"
+        git push
+        cat $GITHUB_WORKSPACE/env/variables.json 
 
