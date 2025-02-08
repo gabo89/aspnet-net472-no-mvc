@@ -51,5 +51,8 @@ jobs:
         done < keystoinsert.json
         cat <<< $(jq --arg uuid "$(uuidgen)" '.sentinel = $uuid' $GITHUB_WORKSPACE/env/variables.json) >  $GITHUB_WORKSPACE/env/variables.json
         git status
+        git add $GITHUB_WORKSPACE/env/variables.json
+        git commit -m "increased sentinel"
+        git push
         cat $GITHUB_WORKSPACE/env/variables.json 
 
