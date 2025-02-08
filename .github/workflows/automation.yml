@@ -50,5 +50,6 @@ jobs:
 
         done < keystoinsert.json
 
-        jq '.sentinel |= (tonumber + 1 | tostring)' GITHUB_WORKSPACE/env/variables.json > GITHUB_WORKSPACE/env/variables.tmp.json && mv GITHUB_WORKSPACE/env/variables.tmp.json GITHUB_WORKSPACE/env/variables.json
+        jq -r '.sentinel |= (tonumber + 1 | tostring)' $GITHUB_WORKSPACE/env/variables.json 
+        cat $GITHUB_WORKSPACE/env/variables.json 
 
